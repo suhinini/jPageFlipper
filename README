@@ -1,0 +1,12 @@
+Project Description
+This is a wonderful implementation of page flipper entirely based on HTML 5 <canvas> tag. It means that it can work in any browser that supports HTML 5 standard draft - just out of the box!
+
+PROJECT DEMO: http://dl.dropbox.com/u/7235888/index.html
+PARTNER NEEDED: It would be nice to have someone else working on this project so if you are familiar with jQuery and are interested in this project - please send me a word.
+
+This project started from a wonderful article by Rick Barraza where he describes all mathematics needed for awesome page flipping: http://bit.ly/1k2Pne
+Thank you, Rick!
+
+It works in Chrome 4+, Firefox 3.5+, Safari 4+, Opera 10.5+
+
+Please everyone - leave your comments here or in Twitter or Gmail: my user id is "suhinini". All found bugs are really welcome and will be fixed as soon as I find some free time.
