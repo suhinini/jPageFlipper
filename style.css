@@ -1,0 +1,86 @@
+body {
+  background-color: #aaaaaa;
+  margin-top: 1.0em;
+  font-family: "Helvetica,Arial,FreeSans";
+}
+
+li {
+  list-style-type: none;
+}
+
+.imagesSource {
+  display: none;
+}
+
+
+#mouse {
+  background: green;
+  opacity: 0.65;
+  position: absolute;
+  color: White;
+  text-align: center;
+  font-weight: bold;
+  z-index: 100;
+}
+
+#container {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+h1 {
+  font-size: 3.8em;
+  margin-bottom: 3px;
+}
+
+h1 .small {
+  font-size: 0.4em;
+}
+
+a {
+  color: blue;
+}
+h1 a {
+  text-decoration: none
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  text-align: center;
+}
+
+.description {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-style: italic;
+}
+
+.download {
+  float: right;
+}
+
+pre {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+}
+
+hr {
+  border: 0;
+  width: 80%;
+  border-bottom: 1px solid #aaa
+}
+
+.footer {
+  text-align: center;
+  padding-top: 30px;
+  font-style: italic;
+}
+
+.clear {
+  clear: both;
+}

@@ -4,33 +4,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>suhinini/jPageFlipper @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #72e309;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #8d1cf6; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #8d1cf6; }
-    h3 { text-align: center; color: #8d1cf6; }
-    a { color: #8d1cf6; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
+	<title>jPageFlipper - a jQuery based HTML5 Canvas Page Flipper</title>
+	<link rel="stylesheet" href="style.css" />
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://github.com/downloads/suhinini/jPageFlipper/jquery.pageFlipper.min.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function () {
+         var isIPad = navigator.userAgent.indexOf('iPad') >= 0;
+    
+         $('#lstImages').pageFlipper({
+           fps: isIPad ? 10 : 20,
+           easing: isIPad ? 0.3 : 0.2,
+           backgroundColor: '#000000'
+         });
+    
+         $('.canvasHolder').css('left', (isIPad ? 0 : 130) + 'px');
+         $('#mouse').css({
+           width: (isIPad ? 40 : 20) + 'px',
+           height: (isIPad ? 40 : 20) + 'px',
+           '-moz-border-radius': (isIPad ? 20 : 10) + 'px',
+           '-webkit-border-radius': (isIPad ? 20 : 10) + 'px'
+         });
+       });
+	</script>
 </head>
 
 <body>
@@ -49,15 +45,21 @@
       <span class="small">by <a href="http://github.com/suhinini">suhinini</a></span></h1>
 
     <div class="description">
-      Open-source jQuery-based page flipper
+      Open-source jQuery-based HTML5 canvas page flipper
     </div>
 
-    <h2>Authors</h2>
-<p>Jared Moody (jared@yourelevation.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p> (suhinini@gmail.com)<br/>      </p>
-
-
+    <h2>Demo</h2>
+    <ul id="lstImages" class="imagesSource">
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/bmw-z8.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/celica.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/koenigsegg.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/manila%202.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/manila.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/koenigsegg.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/bmw-z8.jpg" /></li>
+			<li><img alt="" src="http://github.com/downloads/suhinini/jPageFlipper/manila%202.jpg" /></li>
+		</ul>
+		
     <h2>Download</h2>
     <p>
       You can download this project in either
