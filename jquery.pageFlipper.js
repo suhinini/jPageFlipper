@@ -96,7 +96,7 @@
 
 		var dragging = false;
 		var flipInProgress = false;
-		var outerClick = false; // for fixing issue where clicking outside the visible still triggers action
+		var outerClick = false; // for fixing issue where clicking outside the page still triggers action
 
 		function activateMouseHandle() { 
 			$(tempCanvas)
