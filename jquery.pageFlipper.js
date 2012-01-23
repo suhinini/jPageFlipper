@@ -96,6 +96,7 @@
 
 		var dragging = false;
 		var flipInProgress = false;
+		var outerClick = false; // for fixing issue where clicking outside the visible still triggers action
 
 		function activateMouseHandle() { 
 			$(tempCanvas)
@@ -121,6 +122,11 @@
 							var touch = event.originalEvent.touches[0];
 							mousePosition = {left: touch.screenX - $(holder).position().left, top: touch.screenY - options.pageHeightOffset + 70};
 						}
+					}
+				})
+				.bind('mousedown', function(event) {
+					if(event.pageX < holder.position().left || event.pageX > (holder.position().left + holder.width()) || event.pageY < (holder.position().top + options.pageHeightOffset) || event.pageY > (holder.position().top + holder.height() - options.pageHeightOffset)) {
+						outerClick = true;
 					}
 				})
 				.bind('mouseup', onCanvasActionStop)
@@ -166,10 +172,16 @@
 				clearTempCanvas();
 
 				dragging = false;
+
+				// if callback provided, run it
+				if(options.pageFlipCallback)
+					options.pageFlipCallback(imageIndex);
 			}
 		}
 
 		function onCanvasActionStop(event) {
+			if(outerClick)
+				return; // click occurred outside of visible page
 			if (nextMouseUpIsClick) {
 				onCanvasClick();
 				return;
@@ -201,6 +213,7 @@
 
 		function onCanvasActionStart(event) {
 			nextMouseUpIsClick = true;
+			outerClick = false; // mousedown occurred on canvas
 			if (!flipInProgress) {
 				var zeroPoint = $(holder).position();
 				var relativePosition = {top: event.pageY - zeroPoint.top - options.pageHeightOffset, left: event.pageX - zeroPoint.left};
@@ -483,12 +496,23 @@
 			var rightImage = getRightImage();
 
 			if (leftImage != null) {
+				if(options.shadow) {
+					context.shadowBlur = options.shadow.blur;
+					context.shadowColor = options.shadow.color;
+					// clear previous shadow
+					context.clearRect(0, options.pageHeightOffset + options.pageHeight, 2*options.pageWidth, options.pageHeightOffset);
+					context.clearRect(0, 0, 2*options.pageWidth, options.pageHeightOffset);
+				}
 				drawSource(context, leftImage, 0, options.pageHeightOffset);
+				if(options.nonSolidBackground && leftImage.type == 'background')
+					context.clearRect(0, 0, options.pageWidth, options.pageHeight + 2*options.pageHeightOffset);
 			} else {
 				context.clearRect(0, options.pageHeightOffset, options.pageWidth, options.pageHeight);
 			}
 			if (rightImage != null) {
 				drawSource(context, rightImage, options.pageWidth, options.pageHeightOffset);
+				if(options.nonSolidBackground && rightImage.type == 'background')
+					context.clearRect(options.pageWidth, 0, options.pageWidth, options.pageHeight + 2*options.pageHeightOffset);
 			} else {
 				context.clearRect(options.pageWidth, options.pageHeightOffset, options.pageWidth, options.pageHeight);
 			}
@@ -572,6 +596,30 @@
 		var sourceImagesLength = 0;
 		var sourceImages = [];
 		var imageIndex = 0;
+
+		// API functions for navigating pages
+		//----------------------------------------
+		this.getImageIndex = function() {return imageIndex;};
+
+		this.nextPage = function() {
+			leftIsActive = false;
+			onCanvasClick();
+		}
+		this.prevPage = function() {
+			leftIsActive = true;
+			onCanvasClick();
+		}
+		this.goToPage = function(num) {
+			if(num > imageIndex) {
+				imageIndex = num - 2;
+				this.nextPage();
+			}
+			else if(num < imageIndex) {
+				imageIndex = num + 2;
+				this.prevPage();
+			}
+		}
+		//------------------------------------------
 
 		return this.each(function () {
 			initializeFlipper(this);
